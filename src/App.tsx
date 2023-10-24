@@ -13,6 +13,10 @@ function App() {
   const handleDelete = (id: any) => {
     setfeedback(feedback.filter((item) => item.id !== id));
   };
+
+  const handleSubmit = (text: string) => {
+    console.log("text is ", text);
+  };
   return (
     <>
       <div className="container">
@@ -23,6 +27,7 @@ function App() {
           feedback={feedback}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          handleSubmit={handleSubmit}
         />
       </div>
     </>
