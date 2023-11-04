@@ -3,11 +3,14 @@ import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
 
-const FeedbackForm = ({ handleSubmit }: any) => {
+const FeedbackForm = ({ handleAdd }: any) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(0);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
+  const handleRatingSelect = (rating:number) => {
+    setRating(rating)
+  }
   const handleTextChange = (e: any) => {
     if (text === "") {
       // empty text - buttton disabled and no message
@@ -23,11 +26,20 @@ const FeedbackForm = ({ handleSubmit }: any) => {
     setText(e.target.value);
   };
 
+  const handleFormSubmit = (e:any) => {
+    e.preventDefault()
+
+    const newFeedback = {
+      text,
+      rating
+    }
+    handleAdd(newFeedback)
+  }
   return (
     <Card>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <h2>How would you rate your services with us ?</h2>
-        <RatingSelect />
+        <RatingSelect select={handleRatingSelect} selected={rating} />
         <div className="input-group">
           <input
             type="text"
@@ -38,7 +50,7 @@ const FeedbackForm = ({ handleSubmit }: any) => {
           <Button
             type="submit"
             isDisabled={btnDisabled}
-            handleClick={() => handleSubmit(text)}
+            // handleClick={handleAdd}
           >
             Send
           </Button>
