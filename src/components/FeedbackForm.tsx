@@ -8,9 +8,9 @@ const FeedbackForm = ({ handleAdd }: any) => {
   const [rating, setRating] = useState(0);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
-  const handleRatingSelect = (rating:number) => {
-    setRating(rating)
-  }
+  const handleRatingSelect = (rating: number) => {
+    setRating(rating);
+  };
   const handleTextChange = (e: any) => {
     if (text === "") {
       // empty text - buttton disabled and no message
@@ -26,15 +26,18 @@ const FeedbackForm = ({ handleAdd }: any) => {
     setText(e.target.value);
   };
 
-  const handleFormSubmit = (e:any) => {
-    e.preventDefault()
+  const handleFormSubmit = (e: any) => {
+    e.preventDefault();
 
-    const newFeedback = {
-      text,
-      rating
+    if (text.trim().length > 10) {
+      const newFeedback = {
+        text,
+        rating,
+      };
+      handleAdd(newFeedback);
+      setText("");
     }
-    handleAdd(newFeedback)
-  }
+  };
   return (
     <Card>
       <form onSubmit={handleFormSubmit}>
